@@ -3,25 +3,303 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Portfolio</title>
+  <title>haartt's stuff</title>
   <style>
+    /* Global/Body Styles */
     body {
-      font-family: sans-serif;
-      background: #0f0f0f;
+      font-family: sans-serif; 
+      background: #111111;
       color: #fff;
-      text-align: center;
-      padding: 50px;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
     }
-    a { color: #00bfff; text-decoration: none; }
+    a { color: #53A5FF; text-decoration: none; } 
+
+    .container {
+        width: 100%;
+        max-width: 650px; 
+        padding: 40px 20px; 
+    }
+
+    /* --- Header/Title and Button Area --- */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end; 
+      margin-bottom: 25px; 
+    }
+
+    .title {
+      font-size: 32px;
+      font-weight: 700;
+      margin: 0;
+      color: #FFF;
+    }
+
+    .contacts-wrapper {
+        position: relative; 
+    }
+
+    .contacts-button {
+      background-color: #3A3A3C;
+      color: #FFFFFF;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 18px; 
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.1s ease;
+    }
+
+    .contacts-button:active {
+        background-color: #58585C;
+    }
+
+    /* --- Contacts Dropdown Menu --- */
+    .contacts-menu {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: #2C2C2E;
+      border-radius: 10px;
+      padding: 5px 0; 
+      margin-top: 8px;
+      width: 150px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+      z-index: 999; 
+      display: none;
+      text-align: left;
+    }
+
+    .contacts-menu a {
+      display: block;
+      padding: 10px 15px; 
+      color: #fff;
+      font-weight: 400;
+      transition: background-color 0.1s;
+    }
+
+    .contacts-menu a:hover {
+      background-color: #3A3A3C;
+    }
+
+    /* --- Card Grid Layout --- */
+    .card-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .card-section {
+      border-radius: 20px; 
+      padding: 0;
+    }
+
+    .section-title {
+      font-size: 14px;
+      color: #999999; 
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin: 0 0 10px 5px;
+      text-align: left;
+      font-weight: 500;
+      padding: 15px 15px 10px 15px; 
+    }
+
+    .card-row {
+      display: flex;
+      gap: 15px; 
+      padding: 0 15px 15px 15px;
+    }
+
+    /* Individual Card Styles (General) */
+    .card-item {
+      flex: 1; 
+      background: #303030;
+      border-radius: 15px;
+      padding: 15px;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100px; 
+      
+      /* AGGIUNTA: Transizione per animare l'outline/glow in modo fluido */
+      transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
+    }
+    
+    /* --- NUOVO STILE: Outline e Glow all'Hover del Mouse --- */
+    .card-item:hover {
+        /* Contorno Bianco Solido (3px) */
+        box-shadow: 
+            0 0 0 3px rgba(255, 255, 255, 0.7), 
+            
+        /* Bagliore Bianco (Glow) */
+            0 0 10px 1px #FFF;
+        
+        /* Sposta leggermente in alto per un effetto più interattivo */
+        transform: translateY(-2px);
+    }
+
+    /* Stile per il testo all'interno di tutte le card (senza sfondo grigio) */
+    .card-item p {
+      margin: 5px 0 0 0;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    /* Regole specifiche per la card Apps con immagine di sfondo */
+    #apps-card {
+        background-image: url('images/IMG_0382.jpeg'); 
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        
+        justify-content: flex-end; 
+        padding: 18px; 
+        color: #FFF;
+    }
+
+    /* Card Sound: placeholder icona */
+    #sound-card .placeholder-icon {
+        background-color: #5AC8FA;
+    }
+    
+    .placeholder-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px; 
+      margin-bottom: 5px;
+      background-size: cover;
+      background-position: center;
+    }
+
+    /* Artworks (Grid Container) */
+    .artworks-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5px;
+      padding: 0;
+    }
+
+    .small-artwork {
+      width: 100%;
+      height: 110px;
+      background: #404040;
+      border-radius: 8px; 
+    }
+    
+    /* --- STILI MOUSE TRAIL (CERCHI BIANCHI) --- */
+    .trail-dot {
+        position: absolute;
+        width: 12px; 
+        height: 12px;
+        background: rgba(255, 255, 255, 0.8); 
+        border-radius: 50%; 
+        pointer-events: none; 
+        z-index: 9999; 
+        animation: fadeOut 0.5s forwards; 
+    }
+
+    @keyframes fadeOut {
+        from {
+            transform: scale(1);
+            opacity: 1;
+        }
+        to {
+            transform: scale(0.1); 
+            opacity: 0;
+        }
+    }
+    
   </style>
 </head>
 <body>
-  <h1>My Portfolio</h1>
-  <p>Welcome! I make Swift apps, draw art, and produce music.</p>
-  <ul style="list-style:none;padding:0;">
-    <li><a href="#">Apps</a></li>
-    <li><a href="#">Art</a></li>
-    <li><a href="#">Music (coming soon)</a></li>
-  </ul>
+
+  <div class="container">
+    <div class="header">
+      <h1 class="title">haartt's stuff</h1>
+      <div class="contacts-wrapper">
+        <button class="contacts-button" id="contacts-btn">Contacts</button>
+        
+        <div class="contacts-menu" id="contacts-menu">
+          <a href="mailto:your_email@example.com">Email</a>
+          <a href="https://instagram.com/yourhandle" target="_blank">IG</a>
+          <a href="https://t.me/yourhandle" target="_blank">Telegram</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-grid">
+
+      <div class="card-section">
+        <div class="card-row" style="padding: 0 0 15px 0;"> 
+          
+          <div class="card-item" id="apps-card">
+            <p>Apps</p>
+          </div>
+
+          <div class="card-item" id="sound-card">
+            <div class="placeholder-icon"></div> 
+            <p>Sound</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-section">
+        <h2 class="section-title">Artworks</h2> 
+        <div class="card-row" style="padding: 0 0 15px 0;">
+          <div class="card-item" style="flex-grow: 1; height: auto; padding: 10px;">
+            <div class="artworks-grid">
+              <div class="small-artwork"></div>
+              <div class="small-artwork"></div>
+              <div class="small-artwork"></div>
+              <div class="small-artwork"></div>
+              <div class="small-artwork"></div>
+              <div class="small-artwork"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // Script per il menu Contacts
+    document.getElementById('contacts-btn').onclick = function() {
+      var menu = document.getElementById('contacts-menu');
+      // Toggle visibility
+      if (menu.style.display === 'block') {
+        menu.style.display = 'none';
+      } else {
+        menu.style.display = 'block';
+      }
+    };
+    
+    // Script per l'effetto Mouse Trail
+    document.addEventListener("mousemove", (e) => {
+      // 1. Crea l'elemento scia
+      const dot = document.createElement("div");
+      dot.className = "trail-dot";
+
+      // 2. Posizionalo al centro del cursore
+      dot.style.left = (e.pageX - 6) + "px"; 
+      dot.style.top = (e.pageY - 6) + "px";
+
+      // 3. Aggiungi al body
+      document.body.appendChild(dot);
+
+      // 4. Rimuovi l'elemento dopo l'animazione
+      setTimeout(() => dot.remove(), 500); 
+    });
+
+  </script>
+
 </body>
 </html>
